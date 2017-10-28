@@ -11,6 +11,8 @@ public class CubeManeger : MonoBehaviour
     [SerializeField]
 	GameObject cubePrefab;
 
+	GameObject bigCube;
+
     List<GameObject> cubeList = new List<GameObject>();
 
     // Use this for initialization
@@ -25,10 +27,14 @@ public class CubeManeger : MonoBehaviour
                     GameObject go = Instantiate(cubePrefab) as GameObject;
                     go.transform.position = new Vector3(x, y, z);
 
+					bigCube = GameObject.Find("BigCube");
+					go.transform.parent = bigCube.transform;
+					
                     cubeList.Add(go);
                 }
             }
         }
+		bigCube.transform.Rotate(30, 30, 130);
     }
 
     // Update is called once per frame
@@ -44,7 +50,7 @@ public class CubeManeger : MonoBehaviour
 					{
 						int index = z + (y * CUBE_NUMS) + (x * CUBE_NUMS * CUBE_NUMS);
 
-                        cubeList[index].transform.DOMove(new Vector3(x, y, z), 1f);
+                        cubeList[index].transform.DOMove(new Vector3(x, y, z), 2.0f);
                         cubeList[index].transform.rotation = Quaternion.identity;
                     }
                 }
