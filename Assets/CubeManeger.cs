@@ -15,6 +15,11 @@ public class CubeManeger : MonoBehaviour
 
     List<GameObject> cubeList = new List<GameObject>();
 
+    AudioSource set_as;
+	AudioClip setSE;
+
+    bool isSet = true;
+
     // Use this for initialization
     void Start()
     {
@@ -35,6 +40,9 @@ public class CubeManeger : MonoBehaviour
             }
         }
 		bigCube.transform.Rotate(30, 30, 130);
+
+        set_as = GetComponent<AudioSource>();
+        setSE = set_as.clip;
     }
 
     // Update is called once per frame
@@ -54,6 +62,12 @@ public class CubeManeger : MonoBehaviour
                         cubeList[index].transform.DORotate(new Vector3(0, 0, 0), 2);
                     }
                 }
+            }
+
+            if (isSet)
+            {
+                set_as.PlayOneShot(setSE, 1);
+                isSet = false;
             }
         }
         
@@ -81,6 +95,7 @@ public class CubeManeger : MonoBehaviour
                     }
                 }
             }
+            isSet = true;
         }
     }
 }
