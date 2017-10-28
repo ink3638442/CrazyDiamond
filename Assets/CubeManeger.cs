@@ -50,8 +50,34 @@ public class CubeManeger : MonoBehaviour
 					{
 						int index = z + (y * CUBE_NUMS) + (x * CUBE_NUMS * CUBE_NUMS);
 
-                        cubeList[index].transform.DOMove(new Vector3(x, y, z), 2.0f);
-                        cubeList[index].transform.rotation = Quaternion.identity;
+                        cubeList[index].transform.DOMove(new Vector3(x, y, z), 2);
+                        cubeList[index].transform.DORotate(new Vector3(0, 0, 0), 2);
+                    }
+                }
+            }
+        }
+        
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            // トゥイーン全解除
+            DOTween.KillAll();
+            // 無重力
+            Physics.gravity = Vector3.zero;
+
+            // 爆発
+            for (int x = 0; x < CUBE_NUMS; x++)
+			{
+				for (int y = 0; y < CUBE_NUMS; y++)
+				{
+					for (int z = 0; z < CUBE_NUMS; z++)
+					{
+						int index = z + (y * CUBE_NUMS) + (x * CUBE_NUMS * CUBE_NUMS);
+                        int v_x = Random.Range(-1000,1000);
+                        int v_y = Random.Range(-1000,1000);
+                        int v_z = Random.Range(-1000,1000);
+
+                        Rigidbody rb = cubeList[index].GetComponent<Rigidbody>();
+                        rb.AddForce(new Vector3(v_x, v_y, v_z));
                     }
                 }
             }
